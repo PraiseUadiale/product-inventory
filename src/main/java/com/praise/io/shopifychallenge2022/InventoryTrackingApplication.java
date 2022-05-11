@@ -4,10 +4,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ShopifyChallenge2022Application {
+public class InventoryTrackingApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ShopifyChallenge2022Application.class, args);
+		SpringApplication.run(InventoryTrackingApplication.class, args);
 	}
 
+	//TODO Spring batch to read sql file into db upon restart
 }
