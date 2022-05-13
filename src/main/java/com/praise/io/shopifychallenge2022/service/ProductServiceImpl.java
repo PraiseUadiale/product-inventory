@@ -28,8 +28,6 @@ public class ProductServiceImpl implements ProductService {
 
     String randomSerialNumber =UUID.randomUUID().toString();
     product.setSerialNumber(randomSerialNumber);
-
-    product.setProductImageUrl(setProductImageURL());
     return productRepository.save(product);
   }
 
@@ -53,8 +51,5 @@ public class ProductServiceImpl implements ProductService {
     return Boolean.TRUE;
   }
 
-  //TODO Either Set by URL or set bY default
-  private String setProductImageURL() {
-    return null;
-  }
+
 }

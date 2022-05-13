@@ -4,6 +4,7 @@ import com.praise.io.shopifychallenge2022.enumertation.ProductCategories;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,32 +29,28 @@ import org.hibernate.validator.constraints.Range;
 public class Product implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(nullable = false, updatable = false, name = "id")
+  @Column(nullable = false, updatable = false)
   private Long id;
 
   @NotEmpty(message = "Name must not be blank")
-  @Column(name = "name")
   private String name;
 
-  @Column(nullable = false, updatable = false, unique = true, name = "serial_number")
+  @Column(nullable = false, updatable = false)
   private String serialNumber;
 
-  @Range(min = 0,message = "quantity cannot be equals to or less than 0")
-  @Column(name = "quantity")
+  @Range(min = 0, message = "quantity cannot be equals to or less than 0")
   private Integer quantity;
 
   @NotBlank(message = "Category must be specified")
-  @Column(name = "category")
-  @Enumerated(value = EnumType.STRING)
-  private ProductCategories productCategories;
+  @Enumerated(EnumType.STRING)
+  @Column(length = 10000)
+  private ProductCategories category;
 
-  @Range(min = 0,message = "Price cannot be equals to or less than 0")
-  @Column(name = "price")
+  @Range(min = 0, message = "Price cannot be equals to or less than 0")
   private BigDecimal price;
 
   @NotEmpty(message = "Image must be specified")
-  @Column(name = "image_url")
-  private String productImageUrl;
+  private String imageUrl;
 
   // Lombok used here to avoid boilerplate code
 }

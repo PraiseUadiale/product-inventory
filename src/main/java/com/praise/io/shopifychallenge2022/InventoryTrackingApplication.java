@@ -9,6 +9,4 @@ public class InventoryTrackingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InventoryTrackingApplication.class, args);
 	}
-
-	//TODO Spring batch to read sql file into db upon restart
 }
