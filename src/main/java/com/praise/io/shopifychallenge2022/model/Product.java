@@ -1,24 +1,23 @@
 package com.praise.io.shopifychallenge2022.model;
 
-import com.praise.io.shopifychallenge2022.enumertation.ProductCategories;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.beans.factory.annotation.Value;
 
 @Getter
 @Setter
@@ -28,7 +27,7 @@ import org.hibernate.validator.constraints.Range;
 @ToString
 public class Product implements Serializable {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(nullable = false, updatable = false)
   private Long id;
 
@@ -41,16 +40,16 @@ public class Product implements Serializable {
   @Range(min = 0, message = "quantity cannot be equals to or less than 0")
   private Integer quantity;
 
-  @NotBlank(message = "Category must be specified")
-  @Enumerated(EnumType.STRING)
-  @Column(length = 10000)
-  private ProductCategories category;
+  @NotEmpty(message = "Category must not be blank")
+  private String category;
 
   @Range(min = 0, message = "Price cannot be equals to or less than 0")
   private BigDecimal price;
 
   @NotEmpty(message = "Image must be specified")
   private String imageUrl;
+
+  private Boolean deleted = Boolean.FALSE;
 
   // Lombok used here to avoid boilerplate code
 }

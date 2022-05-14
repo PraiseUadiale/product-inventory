@@ -9,4 +9,5 @@ public class InventoryTrackingApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InventoryTrackingApplication.class, args);
 	}
+	//TODO Support comments and unit testing
 }

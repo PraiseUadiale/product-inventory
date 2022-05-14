@@ -2,7 +2,7 @@ package com.praise.io.shopifychallenge2022.controller;
 
 import com.praise.io.shopifychallenge2022.model.Product;
 import com.praise.io.shopifychallenge2022.model.Response;
-import com.praise.io.shopifychallenge2022.service.ProductService;
+import com.praise.io.shopifychallenge2022.service.ProductServiceImpl;
 import java.time.LocalDateTime;
 import java.util.Map;
 import javax.validation.Valid;
@@ -23,10 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
   private static final int DEFAULT_PAGE_LIMIT = 30;
-  private final ProductService productService;
+  private final ProductServiceImpl productService;
 
   @Autowired
-  public ProductController(ProductService productService) {
+  public ProductController(ProductServiceImpl productService) {
     this.productService = productService;
   }
 
@@ -38,6 +38,18 @@ public class ProductController {
             .status(HttpStatus.OK)
             .data(Map.of("products", productService.findAllProducts(DEFAULT_PAGE_LIMIT)))
             .message("Products retrieved")
+            .statusCode(HttpStatus.OK.value())
+            .build());
+  }
+
+  @GetMapping("/deleted")
+  public ResponseEntity<Response> getAllDeletedProducts() {
+    return ResponseEntity.ok(
+        Response.builder()
+            .timeStamp(LocalDateTime.now())
+            .status(HttpStatus.OK)
+            .data(Map.of("products", productService.findAllSoftDeletedProduct()))
+            .message("Recently deleted products")
             .statusCode(HttpStatus.OK.value())
             .build());
   }
@@ -67,7 +79,20 @@ public class ProductController {
             .build());
   }
 
-  @DeleteMapping("/delete{id}")
+  @DeleteMapping("/delete/{id}")
+  public ResponseEntity<Response> softDeleteProduct(@PathVariable("id") Long id) {
+
+    return ResponseEntity.ok(
+        Response.builder()
+            .timeStamp(LocalDateTime.now())
+            .status(HttpStatus.OK)
+            .data(Map.of("product", productService.softDelete(id)))
+            .message("Product deleted")
+            .statusCode(HttpStatus.OK.value())
+            .build());
+  }
+
+  @DeleteMapping("/remove/{id}")
   public ResponseEntity<Response> deleteProduct(@PathVariable("id") Long id) {
 
     return ResponseEntity.ok(
@@ -76,6 +101,18 @@ public class ProductController {
             .status(HttpStatus.OK)
             .data(Map.of("product", productService.delete(id)))
             .message("Product deleted")
+            .statusCode(HttpStatus.OK.value())
+            .build());
+  }
+
+  @PostMapping("/restore")
+  public ResponseEntity<Response> restoreSoftDeleteProduct(@RequestBody @Valid Product product) {
+    return ResponseEntity.ok(
+        Response.builder()
+            .timeStamp(LocalDateTime.now())
+            .status(HttpStatus.OK)
+            .data(Map.of("product", productService.restoreSoftDelete(product)))
+            .message("Product restored")
             .statusCode(HttpStatus.OK.value())
             .build());
   }

@@ -1,6 +1,5 @@
 package com.praise.io.shopifychallenge2022.batchprocesing;
 
-import com.praise.io.shopifychallenge2022.enumertation.ProductCategories;
 import com.praise.io.shopifychallenge2022.model.Product;
 import java.math.BigDecimal;
 import lombok.extern.slf4j.Slf4j;
@@ -17,9 +16,7 @@ public class ProductDataProcessor implements ItemProcessor<ProductInput, Product
     product.setName(productInput.getName());
     product.setSerialNumber(productInput.getSerialNumber());
     product.setQuantity(Integer.parseInt(productInput.getQuantity()));
-
-   //TODO Fix storing category as random values
-    product.setCategory(ProductCategories.BOOKS);
+    product.setCategory(productInput.getCategory());
     product.setPrice(BigDecimal.valueOf(Long.parseLong(productInput.getPrice())));
     product.setImageUrl(productInput.getImageUrl());
 

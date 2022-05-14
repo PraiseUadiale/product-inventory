@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
   public Product createProduct(Product product) {
     log.info("Saving new product: {}", product.getName());
 
-    String randomSerialNumber =UUID.randomUUID().toString();
+    String randomSerialNumber = UUID.randomUUID().toString();
     product.setSerialNumber(randomSerialNumber);
     return productRepository.save(product);
   }
@@ -38,18 +38,30 @@ public class ProductServiceImpl implements ProductService {
     return productRepository.findAll(pageable).toList();
   }
 
+  public List<Product> findAllSoftDeletedProduct() {
+    return productRepository.findAllByDeletedIsTrue();
+  }
+
   public Product updateProduct(Product product) {
     log.info("Updating product{}", product.getName());
     return productRepository.save(product);
   }
 
+  public Boolean softDelete(Long id) {
+    log.info("Soft deleting product by id {}", id);
+    productRepository.softDelete(Boolean.TRUE, id);
+    return Boolean.TRUE;
+  }
 
-  @Override
+  public Product restoreSoftDelete(Product product) {
+    log.info("Undeleting product by id {}", product.getName());
+    product.setDeleted(Boolean.FALSE);
+    return productRepository.save(product);
+  }
+
   public Boolean delete(Long id) {
     log.info("Deleting server by id {}", id);
     productRepository.deleteById(id);
     return Boolean.TRUE;
   }
-
-
 }
