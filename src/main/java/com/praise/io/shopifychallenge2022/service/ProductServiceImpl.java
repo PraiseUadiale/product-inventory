@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 
   public Product restoreSoftDelete(Product product) {
     log.info("Undeleting product by id {}", product.getName());
-    product.setDeleted(Boolean.FALSE);
+    product.setIsDeleted(Boolean.FALSE);
     return productRepository.save(product);
   }
 

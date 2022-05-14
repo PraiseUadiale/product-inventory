@@ -34,7 +34,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
           .getResultList()
           .forEach(
               e -> {
-                e.setDeleted(Boolean.FALSE);
+                e.setIsDeleted(Boolean.FALSE);
                 entityManager.persist(e);
               });
     }

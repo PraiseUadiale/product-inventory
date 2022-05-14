@@ -49,7 +49,7 @@ public class Product implements Serializable {
   @NotEmpty(message = "Image must be specified")
   private String imageUrl;
 
-  private Boolean deleted = Boolean.FALSE;
+  private Boolean isDeleted = Boolean.FALSE;
 
   // Lombok used here to avoid boilerplate code
 }

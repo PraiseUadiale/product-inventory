@@ -17,7 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
   @Modifying
   @Query(value = "Update Product p SET p.deleted=?  where p.id= ? ", nativeQuery = true)
-  void softDelete(Boolean deleted, Long id);
+  void softDelete(Boolean isDeleted, Long id);
 
   List<Product> findAllByDeletedIsTrue();
 }
