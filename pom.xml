@@ -13,7 +13,7 @@
   <artifactId>shopify-challenge-2022</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>shopify-challenge-2022</name>
-  <description>Shopify Developer Intern Challenge</description>
+  <description>Shopify Developer Challenge</description>
   <properties>
     <java.version>11</java.version>
   </properties>

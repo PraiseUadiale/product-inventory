@@ -12,12 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-  @Query(value = "SELECT * from Product p where p.deleted=false ", nativeQuery = true)
+  @Query(value = "SELECT * from Product p where p.is_deleted=false ", nativeQuery = true)
   Page<Product> findAll(Pageable pageable);
 
-  @Modifying
-  @Query(value = "Update Product p SET p.deleted=?  where p.id= ? ", nativeQuery = true)
-  void softDelete(Boolean isDeleted, Long id);
-
-  List<Product> findAllByDeletedIsTrue();
+  @Query(value = "SELECT * from Product p where p.is_deleted=true ", nativeQuery = true)
+  List<Product> findAllRecentlyDeletedProducts();
 }

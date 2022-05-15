@@ -1,5 +1,6 @@
 package com.praise.io.shopifychallenge2022.service;
 
+import com.praise.io.shopifychallenge2022.exception.ProductNotFoundException;
 import com.praise.io.shopifychallenge2022.model.Product;
 import com.praise.io.shopifychallenge2022.repository.ProductRepository;
 import java.util.List;
@@ -38,8 +39,9 @@ public class ProductServiceImpl implements ProductService {
     return productRepository.findAll(pageable).toList();
   }
 
-  public List<Product> findAllSoftDeletedProduct() {
-    return productRepository.findAllByDeletedIsTrue();
+  public List<Product> findAllDeletedProducts() {
+    log.info("Fetching all deleted products");
+    return productRepository.findAllRecentlyDeletedProducts();
   }
 
   public Product updateProduct(Product product) {
@@ -47,16 +49,11 @@ public class ProductServiceImpl implements ProductService {
     return productRepository.save(product);
   }
 
-  public Boolean softDelete(Long id) {
-    log.info("Soft deleting product by id {}", id);
-    productRepository.softDelete(Boolean.TRUE, id);
-    return Boolean.TRUE;
-  }
-
-  public Product restoreSoftDelete(Product product) {
-    log.info("Undeleting product by id {}", product.getName());
-    product.setIsDeleted(Boolean.FALSE);
-    return productRepository.save(product);
+  public Product get(Long id) {
+    log.info("Fetching product by id..");
+    return productRepository
+        .findById(id)
+        .orElseThrow(() -> new ProductNotFoundException("Product with " + id + " does not exist"));
   }
 
   public Boolean delete(Long id) {
