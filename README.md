@@ -27,6 +27,9 @@ Additional Feature:
 - Backend: Java, SpringBoot, Maven
 - Frontend: Thymeleaf, HTML5, Bootstrap
 - Database: H2- In Memory database
+- Testing: Junit and Mockito
+
+Please Naviagte to the Test Folder under src to find Unit and Integration test
 
 Replit: [Site](https://shopify-challenge-2022.praiseuadiale.repl.co/)
 [Repo](https://replit.com/@PraiseUadiale/shopify-challenge#.replit)
