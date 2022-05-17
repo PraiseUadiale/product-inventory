@@ -24,7 +24,7 @@ import org.springframework.core.io.ClassPathResource;
 public class ProductBatchConfig {
 
   public static final String[] FIELD_NAMES = {
-    "id", "name", "serial_number", "quantity", "category", "price", "image_url"
+    "id", "name", "serial_number", "quantity", "category", "price"
   };
   public final JobBuilderFactory jobBuilderFactory;
   public final StepBuilderFactory stepBuilderFactory;
@@ -42,8 +42,8 @@ public class ProductBatchConfig {
         .itemSqlParameterSourceProvider(
             new BeanPropertyItemSqlParameterSourceProvider<>())
         .sql(
-            "INSERT INTO product (id, name, serial_number, quantity, category, price, image_url) "
-                + " VALUES (:id, :name, :serialNumber, :quantity, :category, :price, :imageUrl)")
+            "INSERT INTO product (id, name, serial_number, quantity, category, price) "
+                + " VALUES (:id, :name, :serialNumber, :quantity, :category, :price)")
         .dataSource(dataSource)
         .build();
   }

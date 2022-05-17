@@ -1,4 +1,5 @@
 package com.praise.io.shopifychallenge2022.controller;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.praise.io.shopifychallenge2022.model.Product;
@@ -11,8 +12,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/v1/product")
+@Controller
 public class ProductController {
 
   private static final int DEFAULT_PAGE_LIMIT = 30;
@@ -34,82 +38,63 @@ public class ProductController {
     this.productService = productService;
   }
 
-  @GetMapping("/all")
-  public ResponseEntity<Response> getAllProducts() {
-    return ResponseEntity.ok(
-        Response.builder()
-            .timeStamp(LocalDateTime.now())
-            .status(HttpStatus.OK)
-            .data(Map.of("products", productService.findAllProducts(DEFAULT_PAGE_LIMIT)))
-            .message("Products retrieved")
-            .statusCode(HttpStatus.OK.value())
-            .build());
+  @GetMapping("/")
+  public String getAllProducts(Model model) {
+    model.addAttribute("allProducts", productService.findAllProducts(DEFAULT_PAGE_LIMIT));
+    return "index";
   }
 
-  @GetMapping("/all/deleted")
-  public ResponseEntity<Response> getAllDeletedProducts() {
-    return ResponseEntity.ok(
-        Response.builder()
-            .timeStamp(LocalDateTime.now())
-            .status(HttpStatus.OK)
-            .data(Map.of("products", productService.findAllDeletedProducts()))
-            .message("Recently deleted products")
-            .statusCode(HttpStatus.OK.value())
-            .build());
+  @GetMapping("/deleted")
+  public String getAllDeletedProducts(Model model) {
+    model.addAttribute("deletedProducts", productService.findAllDeletedProducts());
+
+    return "deleted_product";
+  }
+
+  @GetMapping("/product/new")
+  public String createProductForm(Model model) {
+
+    model.addAttribute("newProduct", new Product());
+    return "add_product";
   }
 
   @PostMapping("/save")
-  public ResponseEntity<Response> addProduct(@RequestBody @Valid Product product) {
-    return ResponseEntity.ok(
-        Response.builder()
-            .timeStamp(LocalDateTime.now())
-            .status(HttpStatus.CREATED)
-            .data(Map.of("product", productService.createProduct(product)))
-            .message("Product created")
-            .statusCode(HttpStatus.CREATED.value())
-            .build());
+  public String addProduct(@ModelAttribute @Valid Product product) {
+    productService.createProduct(product);
+    return "redirect:/";
   }
 
-  @PutMapping("/edit")
-  public ResponseEntity<Response> updateProduct(@RequestBody @Valid Product product) {
-
-    return ResponseEntity.ok(
-        Response.builder()
-            .timeStamp(LocalDateTime.now())
-            .status(HttpStatus.OK)
-            .data(Map.of("product", productService.updateProduct(product)))
-            .message("Product updated")
-            .statusCode(HttpStatus.OK.value())
-            .build());
+  @GetMapping("/product/edit/{id}")
+  public String editProductForm(@PathVariable("id") Long id, Model model) {
+    model.addAttribute("editProduct", productService.get(id));
+    return "edit_product";
   }
 
-  @PatchMapping("/edit/update/")
-  public ResponseEntity<Response> partialUpdateProduct(@RequestBody ObjectNode objectNode) {
-    Long id = objectNode.get("id").asLong();
-    Boolean isDeleted = objectNode.get("isDeleted").asBoolean();
+  @PostMapping("/edit/{id}")
+  public String updateProduct(
+      @ModelAttribute(value = "editProduct") Product product, @PathVariable("id") Long id) {
+    Product existingProduct = productService.get(id);
+    existingProduct.setName(product.getName());
+    existingProduct.setPrice(product.getPrice());
+    existingProduct.setQuantity(product.getQuantity());
+    existingProduct.setCategory(product.getCategory());
+    productService.updateProduct(existingProduct);
+    System.out.println(existingProduct);
+    return "redirect:/";
+  }
+
+  @GetMapping("/delete/{id}")
+  public String deleteProduct(@PathVariable("id") Long id) {
+    productService.delete(id);
+    return "redirect:/";
+  }
+
+  @GetMapping("/edit/partial/{id}")
+  public String partialUpdateProduct(
+      @ModelAttribute(value = "editProduct") @PathVariable("id") Long id) {
     Product productFromDB = productService.get(id);
-    productFromDB.setIsDeleted(isDeleted);
-
-    return ResponseEntity.ok(
-        Response.builder()
-            .timeStamp(LocalDateTime.now())
-            .status(HttpStatus.OK)
-            .data(Map.of("product", productService.updateProduct(productFromDB)))
-            .message("Product Updated")
-            .statusCode(HttpStatus.OK.value())
-            .build());
-  }
-
-  @DeleteMapping("/delete/{id}")
-  public ResponseEntity<Response> deleteProduct(@PathVariable("id") Long id) {
-
-    return ResponseEntity.ok(
-        Response.builder()
-            .timeStamp(LocalDateTime.now())
-            .status(HttpStatus.OK)
-            .data(Map.of("product", productService.delete(id)))
-            .message("Product deleted")
-            .statusCode(HttpStatus.OK.value())
-            .build());
+    productFromDB.setIsDeleted(!productFromDB.getIsDeleted());
+    productService.updateProduct(productFromDB);
+    return "redirect:/";
   }
 }
