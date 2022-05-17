@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   public Boolean delete(Long id) {
-    log.info("Deleting server by id {}", id);
+    log.info("Deleting product by id {}", id);
     productRepository.deleteById(id);
     return Boolean.TRUE;
   }

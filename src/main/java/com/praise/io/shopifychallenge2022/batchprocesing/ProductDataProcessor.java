@@ -18,7 +18,6 @@ public class ProductDataProcessor implements ItemProcessor<ProductInput, Product
     product.setQuantity(Integer.parseInt(productInput.getQuantity()));
     product.setCategory(productInput.getCategory());
     product.setPrice(BigDecimal.valueOf(Long.parseLong(productInput.getPrice())));
-    product.setImageUrl(productInput.getImageUrl());
 
     log.info("Converting (" + productInput + ") into (" + product + ")");
     return product;

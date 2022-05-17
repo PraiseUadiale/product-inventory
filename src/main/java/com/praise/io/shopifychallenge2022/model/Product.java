@@ -46,8 +46,7 @@ public class Product implements Serializable {
   @Range(min = 0, message = "Price cannot be equals to or less than 0")
   private BigDecimal price;
 
-  @NotEmpty(message = "Image must be specified")
-  private String imageUrl;
+  private String comment;
 
   private Boolean isDeleted = Boolean.FALSE;
 

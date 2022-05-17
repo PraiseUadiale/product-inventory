@@ -26,7 +26,8 @@ class JobCompletionNotificationListenerTest {
 
   @Test
   void testAfterJob() {
-    JobExecution jobExecution = new JobExecution(123L);
+    JobExecution jobExecution = new JobExecution(
+        new JobExecution(new JobExecution(new JobExecution(new JobExecution(123L)))));
     this.jobCompletionNotificationListener.afterJob(jobExecution);
     assertEquals(
         "JobExecution: id=123, version=null, startTime=null, endTime=null, lastUpdated=null, status=STARTING,"
