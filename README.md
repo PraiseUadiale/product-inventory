@@ -24,7 +24,7 @@ Additional Feature:
 
 ## Tech Stack
 
-- Backend: Java, SpringBoot, Maven
+- Backend: Java, SpringBoot, Maven, Spring Batch
 - Frontend: Thymeleaf, HTML5, Bootstrap
 - Database: H2- In Memory database
 - Testing: Junit and Mockito
