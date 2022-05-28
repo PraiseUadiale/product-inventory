@@ -15,7 +15,6 @@ class ProductTest {
     Product actualProduct = new Product();
     actualProduct.setCategory("Category");
     actualProduct.setId(123L);
-    actualProduct.setImageUrl("https://example.org/example");
     actualProduct.setIsDeleted(true);
     actualProduct.setName("Name");
     BigDecimal valueOfResult = BigDecimal.valueOf(42L);
@@ -24,15 +23,14 @@ class ProductTest {
     actualProduct.setSerialNumber("42");
     assertEquals("Category", actualProduct.getCategory());
     assertEquals(123L, actualProduct.getId().longValue());
-    assertEquals("https://example.org/example", actualProduct.getImageUrl());
     assertTrue(actualProduct.getIsDeleted());
     assertEquals("Name", actualProduct.getName());
     assertSame(valueOfResult, actualProduct.getPrice());
     assertEquals(1, actualProduct.getQuantity().intValue());
     assertEquals("42", actualProduct.getSerialNumber());
     assertEquals(
-        "Product(id=123, name=Name, serialNumber=42, quantity=1, category=Category, price=42, imageUrl=https:"
-            + "//example.org/example, isDeleted=true)", actualProduct.toString());
+        "Product(id=123, name=Name, serialNumber=42, quantity=1, category=Category, price=42, isDeleted=true)",
+        actualProduct.toString());
   }
 
   @Test
@@ -43,17 +41,16 @@ class ProductTest {
   @Test
   void testConstructor3() {
     Product actualProduct = new Product(123L, "Name", "42", 1, "Category", BigDecimal.valueOf(42L),
-        "https://example.org/example", true);
+        true);
 
     assertEquals("Category", actualProduct.getCategory());
     assertEquals(
-        "Product(id=123, name=Name, serialNumber=42, quantity=1, category=Category, price=42, imageUrl=https:"
-            + "//example.org/example, isDeleted=true)", actualProduct.toString());
+        "Product(id=123, name=Name, serialNumber=42, quantity=1, category=Category, price=42, isDeleted=true)",
+        actualProduct.toString());
     assertEquals("42", actualProduct.getSerialNumber());
     assertEquals(1, actualProduct.getQuantity().intValue());
     assertEquals("Name", actualProduct.getName());
     assertTrue(actualProduct.getIsDeleted());
-    assertEquals("https://example.org/example", actualProduct.getImageUrl());
     assertEquals(123L, actualProduct.getId().longValue());
   }
 }

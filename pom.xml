@@ -12,8 +12,7 @@
   <groupId>com.praise.io</groupId>
   <artifactId>shopify-challenge-2022</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>shopify-challenge-2022</name>
-  <description>Shopify Developer Challenge</description>
+  <name>product-inventory</name>
   <properties>
     <java.version>11</java.version>
   </properties>

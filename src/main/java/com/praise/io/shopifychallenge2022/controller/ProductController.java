@@ -34,7 +34,7 @@ public class ProductController {
     this.productService = productService;
   }
 
-  @GetMapping("/all")
+  @GetMapping("/")
   public ResponseEntity<Response> getAllProducts() {
     return ResponseEntity.ok(
         Response.builder()
@@ -46,7 +46,7 @@ public class ProductController {
             .build());
   }
 
-  @GetMapping("/all/deleted")
+  @GetMapping("/deletedProduct")
   public ResponseEntity<Response> getAllDeletedProducts() {
     return ResponseEntity.ok(
         Response.builder()
