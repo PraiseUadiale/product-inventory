@@ -6,4 +6,4 @@ HELP.md
 mvnw.cmd
 .mvn
 mvnw
-target
+target/
