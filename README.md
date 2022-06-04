@@ -1,4 +1,4 @@
- Shopify Backend Developer Challenge
+
 
 **CONTENTS**
 
@@ -9,7 +9,7 @@
 
 ## Objective
 
-Build an inventory tracking web application for a logistics company, with requirements:
+Build an inventory tracking web application for a logistics company
 
 Basic CRUD Functionalities:
 
@@ -26,22 +26,35 @@ Additional Feature:
 
 - Backend: Java, SpringBoot, Maven, Spring Batch
 - Frontend: Thymeleaf, HTML5, Bootstrap
-- Database: H2- In Memory database
-- Testing: Junit and Mockito
+- Database: H2
+- Testing: Junit
 
-Please Naviagte to the Test Folder under src to find Unit and Integration test
 
 Replit: [Site](https://shopify-challenge-2022.praiseuadiale.repl.co/)
 [Repo](https://replit.com/@PraiseUadiale/shopify-challenge#.replit)
 
 ## Installation
-
 ### Requirements:
-- [Java 11+](https://www.openlogic.com/openjdk-downloads)
+- [Docker](https://docs.docker.com/get-docker/)
 
-To run Shopify Coding Challenge on your local machine, follow the instructions below:
+To run  on your local machine, follow the instructions below:
 
-<Replace with Docker image>
+- To verify Docker is installed Run: 
+```
+docker --version
+```
+- Pull Docker images from repository
 
-Navigate to localhost:8080/ and to begin exploration!
+```
+docker pull praiseuadiale/shopify-challenge-2022
+
+```
+
+- Run Image
+
+```
+docker run -d -p 8080:8080 --name shopify-challenge praiseuadiale/shopify-challenge-2022
+```
+
+On your browser enter url localhost:8080/ and to make use
 
