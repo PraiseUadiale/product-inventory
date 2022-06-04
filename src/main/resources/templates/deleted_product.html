@@ -41,12 +41,11 @@
   <tr th:each=" prod: ${deletedProducts}">
     <td th:text="${prod.name}"></td>
     <td th:text="${prod.serialNumber}"></td>
-    <td th:text="${prod.serialNumber}"></td>
+    <td th:text="${prod.category}"></td>
     <td th:text="${prod.comment}"></td>
     <td>
       <a th:href="@{/edit/partial/{id}(id=${prod.id})}" class="btn btn-primary">Restore</a>
       <a th:href="@{/delete/{id}(id=${prod.id})}" class="btn btn-danger">Permanently Delete</a>
-
     </td>
   </tr>
 

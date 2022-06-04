@@ -1,31 +1,16 @@
 package com.praise.io.shopifychallenge2022.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.praise.io.shopifychallenge2022.model.Product;
-import com.praise.io.shopifychallenge2022.model.Response;
 import com.praise.io.shopifychallenge2022.service.ProductService;
-import com.praise.io.shopifychallenge2022.service.ProductServiceImpl;
-import java.time.LocalDateTime;
-import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class ProductController {
@@ -71,8 +56,7 @@ public class ProductController {
   }
 
   @PostMapping("/edit/{id}")
-  public String updateProduct(
-      @ModelAttribute(value = "editProduct") Product product, @PathVariable("id") Long id) {
+  public String updateProduct(@Valid Product product, @PathVariable("id") Long id) {
     Product existingProduct = productService.get(id);
     existingProduct.setName(product.getName());
     existingProduct.setPrice(product.getPrice());
@@ -91,9 +75,12 @@ public class ProductController {
 
   @GetMapping("/edit/partial/{id}")
   public String partialUpdateProduct(
-      @ModelAttribute(value = "editProduct") @PathVariable("id") Long id) {
+      @PathVariable("id") Long id,
+      @RequestParam(value = "comment", required = false) String comment) {
     Product productFromDB = productService.get(id);
-    productFromDB.setIsDeleted(!productFromDB.getIsDeleted());
+    boolean isDeleted = productFromDB.getIsDeleted();
+    productFromDB.setIsDeleted(!isDeleted);
+    productFromDB.setComment(comment);
     productService.updateProduct(productFromDB);
     return "redirect:/";
   }

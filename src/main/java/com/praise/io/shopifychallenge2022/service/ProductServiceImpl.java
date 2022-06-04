@@ -25,22 +25,21 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public Product createProduct(Product product) {
-    log.info("Saving new product: {}", product.getName());
-
     String randomSerialNumber = UUID.randomUUID().toString();
     product.setSerialNumber(randomSerialNumber);
+    log.info("Creating a product ");
     return productRepository.save(product);
   }
 
   @Override
   public List<Product> findAllProducts(int limit) {
-    log.info("Fetching all products");
+    log.info("Retrieving all products");
     PageRequest pageable = PageRequest.of(0, limit);
     return productRepository.findAll(pageable).toList();
   }
 
   public List<Product> findAllDeletedProducts() {
-    log.info("Fetching all deleted products");
+    log.info("Retrieving all hidden products");
     return productRepository.findAllRecentlyDeletedProducts();
   }
 
@@ -50,15 +49,15 @@ public class ProductServiceImpl implements ProductService {
   }
 
   public Product get(Long id) {
-    log.info("Fetching product by id..");
+    log.info("Fetching product by id {}", id);
     return productRepository
         .findById(id)
         .orElseThrow(() -> new ProductNotFoundException("Product with " + id + " does not exist"));
   }
 
   public Boolean delete(Long id) {
-    log.info("Deleting product by id {}", id);
     productRepository.deleteById(id);
+    log.info("Deleting product by id {}", id);
     return Boolean.TRUE;
   }
 }

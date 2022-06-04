@@ -9,6 +9,10 @@
         rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
         crossorigin="anonymous">
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+          crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -39,15 +43,15 @@
 
 </div>
 
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-hover">
   <thead class="table-dark">
   <tr>
-    <th> Name</th>
-    <th> Serial Number</th>
-    <th> Quantity</th>
-    <th> Category</th>
-    <th> Price</th>
-    <th> Actions</th>
+    <th scope="col"> Name</th>
+    <th scope="col"> Serial Number</th>
+    <th scope="col"> Quantity</th>
+    <th scope="col"> Category</th>
+    <th scope="col"> Price (£)</th>
+    <th scope="col"> Actions</th>
   </tr>
   </thead>
   <tbody>
@@ -60,7 +64,40 @@
     <td th:text="${prod.price}"></td>
     <td>
       <a th:href="@{/product/edit/{id}(id=${prod.id})}" class="btn btn-primary">Update</a>
-      <a th:href="@{/edit/partial/{id}(id=${prod.id})}" class="btn btn-danger">Delete</a>
+      <button class="btn btn-danger" type="button" data-bs-toggle="modal"
+              data-bs-target="#exampleModal">Delete
+      </button>
+      <!-- Modal -->
+      <form th:action="@{/edit/partial/{id}(id=${prod.id})}" method="get">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h7 class="text-danger">Enter Reason for Deletion</h7>
+                <div class="form-group">
+                  <input type="text" th:name="comment" th:value="${comment}" class="form-control"
+                         maxlength="100"
+                         id="validationDefault03" required>
+                  <div class="invalid-feedback">
+                    Please provide a comment!.
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-primary">Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
 
     </td>
   </tr>

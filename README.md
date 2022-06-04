@@ -41,11 +41,7 @@ Replit: [Site](https://shopify-challenge-2022.praiseuadiale.repl.co/)
 
 To run Shopify Coding Challenge on your local machine, follow the instructions below:
 
-- Clone repository this repository
-- Open CLI or CMD
-- cd shopify-challenge-2022
-- cd target
-- run java -jar shopify-challenge-2022-0.0.1-SNAPSHOT.jar
+<Replace with Docker image>
 
 Navigate to localhost:8080/ and to begin exploration!
 
