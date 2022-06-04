@@ -31,7 +31,7 @@ Additional Feature:
 
 
 Replit: [Site](https://shopify-challenge-2022.praiseuadiale.repl.co/)
-[Repo](https://replit.com/@PraiseUadiale/shopify-challenge#.replit)
+[Repo](https://replit.com/@PraiseUadiale/shopify-challenge-2022#.replit)
 
 ## Installation
 ### Requirements:
