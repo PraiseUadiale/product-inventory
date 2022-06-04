@@ -29,7 +29,6 @@
       <h1 class="text-center">New Product </h1>
       <div class="card-body">
         <form th:action="@{/save}" th:object="${newProduct}" method="POST">
-
           <div class="form-group">
             <label> Product Name </label>
             <input
@@ -37,7 +36,8 @@
                 name="productName"
                 th:field="*{name}"
                 class="form-control"
-                placeholder="Enter Product Name"
+                placeholder="John Doe"
+                required
             />
           </div>
 
@@ -48,7 +48,8 @@
                 name="productQuantity"
                 th:field="*{quantity}"
                 class="form-control"
-                placeholder="Enter Quantity"
+                placeholder="50"
+                required
             />
           </div>
           <div class="form-group">
@@ -58,7 +59,8 @@
                 name="productPrice"
                 th:field="*{price}"
                 class="form-control"
-                placeholder="££"
+                placeholder="40"
+                required
             />
           </div>
 
@@ -66,7 +68,6 @@
           <div class="form-group">
             <label> Category </label>
             <select class="form-select" aria-label="Default select example" th:field="*{category}">
-              <option value="E" selected>Select Product category..</option>
               <option value="ELECTRONICS">ELECTRONICS</option>
               <option value="INDUSTRIAL">INDUSTRIAL</option>
               <option value="BOOKS">BOOKS</option>
@@ -79,7 +80,7 @@
 
           <div class="box-footer">
             <button type="submit" class="btn btn-primary">
-              Submit
+              Save
             </button>
           </div>
         </form>
