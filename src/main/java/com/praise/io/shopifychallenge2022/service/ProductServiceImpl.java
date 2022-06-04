@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
     log.info("Fetching product by id {}", id);
     return productRepository
         .findById(id)
-        .orElseThrow(() -> new ProductNotFoundException("Product with " + id + " does not exist"));
+        .orElseThrow(() -> new ProductNotFoundException("Product  does not exist"));
   }
 
   public Boolean delete(Long id) {

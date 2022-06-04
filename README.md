@@ -47,7 +47,6 @@ docker --version
 
 ```
 docker pull praiseuadiale/shopify-challenge-2022
-
 ```
 
 - Run Image
