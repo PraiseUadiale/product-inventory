@@ -1,23 +1,25 @@
 package com.praise.io.shopifychallenge2022.model;
 
-import java.io.Serializable;
+import com.praise.io.shopifychallenge2022.enumeration.ProductCategories;
+import com.praise.io.shopifychallenge2022.enumeration.ProductCategoryConverter;
 import java.math.BigDecimal;
 import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Converter;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.beans.factory.annotation.Value;
 
 @Getter
 @Setter
@@ -25,7 +27,7 @@ import org.springframework.beans.factory.annotation.Value;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Product implements Serializable {
+public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(nullable = false, updatable = false)
@@ -40,8 +42,9 @@ public class Product implements Serializable {
   @Range(min = 0, message = "quantity cannot be equals to or less than 0")
   private Integer quantity;
 
-  @NotEmpty(message = "Category must not be blank")
-  private String category;
+  @NotNull
+  @Convert(converter = ProductCategoryConverter.class)
+  private ProductCategories category;
 
   @Range(min = 0, message = "Price cannot be equals to or less than 0")
   private BigDecimal price;

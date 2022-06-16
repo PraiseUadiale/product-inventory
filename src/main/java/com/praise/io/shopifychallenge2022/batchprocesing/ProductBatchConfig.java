@@ -39,8 +39,7 @@ public class ProductBatchConfig {
   @Bean
   public JdbcBatchItemWriter<Product> writer(DataSource dataSource) {
     return new JdbcBatchItemWriterBuilder<Product>()
-        .itemSqlParameterSourceProvider(
-            new BeanPropertyItemSqlParameterSourceProvider<>())
+        .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
         .sql(
             "INSERT INTO product (id, name, serial_number, quantity, category, price) "
                 + " VALUES (:id, :name, :serialNumber, :quantity, :category, :price)")

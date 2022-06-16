@@ -1,7 +1,9 @@
 package com.praise.io.shopifychallenge2022.batchprocesing;
 
+import com.praise.io.shopifychallenge2022.enumeration.ProductCategories;
 import com.praise.io.shopifychallenge2022.model.Product;
 import java.math.BigDecimal;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 
@@ -16,7 +18,8 @@ public class ProductDataProcessor implements ItemProcessor<ProductInput, Product
     product.setName(productInput.getName());
     product.setSerialNumber(productInput.getSerialNumber());
     product.setQuantity(Integer.parseInt(productInput.getQuantity()));
-    product.setCategory(productInput.getCategory());
+    ProductCategories category = ProductCategories.parseCategories(productInput.getCategory());
+    product.setCategory(category);
     product.setPrice(BigDecimal.valueOf(Long.parseLong(productInput.getPrice())));
 
     log.info("Converting (" + productInput + ") into (" + product + ")");
