@@ -10,7 +10,7 @@
     <relativePath/>
   </parent>
   <groupId>com.praise.io</groupId>
-  <artifactId>shopify-challenge-2022</artifactId>
+  <artifactId>product-inventory</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>product-inventory</name>
   <properties>
@@ -65,10 +65,37 @@
     </dependency>
 
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.thymeleaf.extras</groupId>
+      <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-client</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
       <version>6.0.13.Final</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.ocpsoft.prettytime</groupId>
+      <artifactId>prettytime</artifactId>
+      <version>5.0.2.Final</version>
+    </dependency>
+
   </dependencies>
 
   <build>

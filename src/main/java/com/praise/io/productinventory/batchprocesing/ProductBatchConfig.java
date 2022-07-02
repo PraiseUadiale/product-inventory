@@ -1,6 +1,7 @@
-package com.praise.io.shopifychallenge2022.batchprocesing;
+package com.praise.io.productinventory.batchprocesing;
 
-import com.praise.io.shopifychallenge2022.model.Product;
+import com.praise.io.productinventory.model.Product;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -8,9 +9,8 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
-import org.springframework.batch.item.database.JdbcBatchItemWriter;
-import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
@@ -28,23 +28,16 @@ public class ProductBatchConfig {
   };
   public final JobBuilderFactory jobBuilderFactory;
   public final StepBuilderFactory stepBuilderFactory;
+  public final EntityManagerFactory entityManagerFactory;
 
   @Autowired
   public ProductBatchConfig(
-      JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
+      JobBuilderFactory jobBuilderFactory,
+      StepBuilderFactory stepBuilderFactory,
+      EntityManagerFactory entityManagerFactory) {
     this.jobBuilderFactory = jobBuilderFactory;
     this.stepBuilderFactory = stepBuilderFactory;
-  }
-
-  @Bean
-  public JdbcBatchItemWriter<Product> writer(DataSource dataSource) {
-    return new JdbcBatchItemWriterBuilder<Product>()
-        .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-        .sql(
-            "INSERT INTO product (id, name, serial_number, quantity, category, price) "
-                + " VALUES (:id, :name, :serialNumber, :quantity, :category, :price)")
-        .dataSource(dataSource)
-        .build();
+    this.entityManagerFactory = entityManagerFactory;
   }
 
   @Bean
@@ -69,6 +62,24 @@ public class ProductBatchConfig {
   }
 
   @Bean
+  public ItemWriter<Product> writer(DataSource dataSource) {
+    JpaItemWriter<Product> productJpaItemWriter = new JpaItemWriter<>();
+    productJpaItemWriter.setEntityManagerFactory(entityManagerFactory);
+    return productJpaItemWriter;
+  }
+
+  @Bean
+  public Step step1(ItemWriter<Product> writer) {
+    return stepBuilderFactory
+        .get("step1")
+        .<ProductInput, Product>chunk(10)
+        .reader(reader())
+        .processor(processor())
+        .writer(writer)
+        .build();
+  }
+
+  @Bean
   public Job importUserJob(JobCompletionNotificationListener listener, Step step1) {
     return jobBuilderFactory
         .get("importUserJob")
@@ -76,17 +87,6 @@ public class ProductBatchConfig {
         .listener(listener)
         .flow(step1)
         .end()
-        .build();
-  }
-
-  @Bean
-  public Step step1(JdbcBatchItemWriter<Product> writer) {
-    return stepBuilderFactory
-        .get("step1")
-        .<ProductInput, Product>chunk(10)
-        .reader(reader())
-        .processor(processor())
-        .writer(writer)
         .build();
   }
 }

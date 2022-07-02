@@ -1,4 +1,4 @@
-package com.praise.io.shopifychallenge2022.model;
+package com.praise.io.productinventory.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 @Data
 @SuperBuilder
 @JsonInclude(Include.NON_NULL)
-public class Response {
+public class ClientResponsePayload {
 
   protected LocalDateTime timeStamp;
   protected int statusCode;
@@ -21,4 +21,4 @@ public class Response {
   protected String developerMessage;
   protected Map<?, ?> data;
 }
-// Class contains payload sent to client everytime theres a request, used for consistency
+

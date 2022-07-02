@@ -1,7 +1,6 @@
-package com.praise.io.shopifychallenge2022.enumeration;
+package com.praise.io.productinventory.enumeration;
 
 import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
 
 
 public class ProductCategoryConverter implements AttributeConverter<ProductCategories, String> {
@@ -11,7 +10,7 @@ public class ProductCategoryConverter implements AttributeConverter<ProductCateg
     if (productCategories == null) {
       return null;
     }
-    return productCategories.getCode();
+    return productCategories.toString();
   }
 
   @Override

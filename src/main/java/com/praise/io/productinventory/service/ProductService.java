@@ -1,7 +1,6 @@
-package com.praise.io.shopifychallenge2022.service;
+package com.praise.io.productinventory.service;
 
-import com.praise.io.shopifychallenge2022.model.Product;
-import java.util.Collection;
+import com.praise.io.productinventory.model.Product;
 import java.util.List;
 
 public interface ProductService {

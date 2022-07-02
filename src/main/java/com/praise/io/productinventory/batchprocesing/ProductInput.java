@@ -1,10 +1,10 @@
-package com.praise.io.shopifychallenge2022.batchprocesing;
+package com.praise.io.productinventory.batchprocesing;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class ProductInput {
 
   private String id;

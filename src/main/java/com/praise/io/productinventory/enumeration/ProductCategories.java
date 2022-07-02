@@ -1,22 +1,15 @@
-package com.praise.io.shopifychallenge2022.enumeration;
+package com.praise.io.productinventory.enumeration;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 import lombok.Getter;
 
 @Getter
 public enum ProductCategories {
-  ELECTRONICS("E"),
-  BOOKS("B"),
-  CLOTHES("C"),
-  INDUSTRIAL("I"),
-  JEWELLERY("J");
-
-  private final String code;
-
-  ProductCategories(String code) {
-    this.code = code;
-  }
+  ELECTRONICS,
+  BOOKS,
+  CLOTHES,
+  INDUSTRIAL,
+  JEWELLERY;
 
   public static ProductCategories parseCategories(String input) {
 

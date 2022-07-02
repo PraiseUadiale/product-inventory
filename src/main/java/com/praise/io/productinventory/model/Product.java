@@ -1,14 +1,11 @@
-package com.praise.io.shopifychallenge2022.model;
+package com.praise.io.productinventory.model;
 
-import com.praise.io.shopifychallenge2022.enumeration.ProductCategories;
-import com.praise.io.shopifychallenge2022.enumeration.ProductCategoryConverter;
+import com.praise.io.productinventory.enumeration.ProductCategories;
+import com.praise.io.productinventory.enumeration.ProductCategoryConverter;
 import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.Converter;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,5 +48,7 @@ public class Product {
 
   private Boolean isDeleted = Boolean.FALSE;
 
-  // Lombok used here to avoid boilerplate code
+  private String deletedReason;
+
+
 }

@@ -1,8 +1,8 @@
-package com.praise.io.shopifychallenge2022.service;
+package com.praise.io.productinventory.service;
 
-import com.praise.io.shopifychallenge2022.exception.ProductNotFoundException;
-import com.praise.io.shopifychallenge2022.model.Product;
-import com.praise.io.shopifychallenge2022.repository.ProductRepository;
+import com.praise.io.productinventory.exception.ProductNotFoundException;
+import com.praise.io.productinventory.model.Product;
+import com.praise.io.productinventory.repository.ProductRepository;
 import java.util.List;
 import java.util.UUID;
 import javax.transaction.Transactional;

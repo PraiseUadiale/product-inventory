@@ -1,9 +1,9 @@
-package com.praise.io.shopifychallenge2022.batchprocesing;
+package com.praise.io.productinventory.batchprocesing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import com.praise.io.shopifychallenge2022.model.Product;
+import com.praise.io.productinventory.model.Product;
 import org.junit.jupiter.api.Test;
 
 class ProductDataProcessorTest {

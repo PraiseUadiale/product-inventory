@@ -1,4 +1,4 @@
-package com.praise.io.shopifychallenge2022.batchprocesing;
+package com.praise.io.productinventory.batchprocesing;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

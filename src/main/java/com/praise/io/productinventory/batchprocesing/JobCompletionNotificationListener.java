@@ -1,6 +1,6 @@
-package com.praise.io.shopifychallenge2022.batchprocesing;
+package com.praise.io.productinventory.batchprocesing;
 
-import com.praise.io.shopifychallenge2022.model.Product;
+import com.praise.io.productinventory.model.Product;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;

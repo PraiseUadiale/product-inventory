@@ -1,4 +1,4 @@
-package com.praise.io.shopifychallenge2022.exception;
+package com.praise.io.productinventory.exception;
 
 public class ProductNotFoundException extends RuntimeException {
 
